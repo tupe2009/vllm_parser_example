@@ -73,6 +73,11 @@ class CommandAToolParser(ToolParser):
             
             # Parse JSON array of tool calls
             action_list = json.loads(raw_actions)
+            for item in action_list:
+                if "tool_name" in item:
+                    item["name"] = item.pop("tool_name")
+                if "parameters" in item:
+                    item["arguments"] = item.pop("parameters")
             for action in action_list:
                 tool_calls.append(ToolCall(
                     type="function",
