@@ -88,7 +88,7 @@ class CommandAToolParser(ToolParser):
                 ))
 
             # Extract non-tool content
-            content = model_output.split(self.action_start_token)[0].strip()
+            content = model_output.split(self.action_start_token)[0].strip().replace(self.thinking_start_token,"").replace(self.thinking_end_token,"")
             return ExtractedToolCallInformation(
                 tools_called=True,
                 tool_calls=tool_calls,
